@@ -1,1 +1,1 @@
-# Chaos-Game
+# ChaosGame
