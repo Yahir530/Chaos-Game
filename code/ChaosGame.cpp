@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <ctsdlib>
 
 // Make code easier to type with "using namespace"
 using namespace sf;
@@ -14,8 +15,8 @@ int main()
     // Create a video mode object
 	VideoMode vm(1920, 1080);
 	// Create and open a window for the game
-	RenderWindow window(vm, "Timber Game!!", Style::Default);
-
+	RenderWindow window(vm, "ChaosGame", Style::Default);
+	rectangleShape rectangle;
     vector<Vector2f> vertices;
     vector<Vector2f> points;
 
@@ -50,6 +51,7 @@ int main()
                     {
                         ///fourth click
                         ///push back to points vector
+			points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y))
                     }
                 }
             }
@@ -63,13 +65,32 @@ int main()
 		Update
 		****************************************
 		*/
-
+	RectangleShape rect(Vector2f(10, 10));
+        rect.setPosition(event.mouseButton.x, event.mouseButton.y);
+        rect.setFillColor(Color::Blue);
+		
+	int midpoint_x, midpoint_y;
+	int point = rand() %3;
+	int scale=1/2;
         if(points.size() > 0)
         {
             ///generate more point(s)
             ///select random vertex
             ///calculate midpoint between random vertex and the last point in the vector
             ///push back the newly generated coord.
+		midpoint_x= points[points.size()-1].x - (vertices[points].x - points[points.size() -1].x) *scale;
+		midpoint_y= points[points.size()-1].y - (vertices[points].y - points[points.size() -1].y) *scale;
+		//new coordinate is pushed back
+		
+	    cout << "points[point.size() - 1].x\t" << points[points.size() - 1].x << endl;
+            cout << "vertices[point].x\t" << vertices[point].x << endl;
+            cout << "scale\t" << scale << endl;
+            cout << "midpoint_x\t" << midpoint_x << endl;
+            cout << "midpoint_y\t" << midpoint_y << endl << endl;
+		
+		RectangleShape rect(Vector2f(10, 10));
+            rect.setSize(Vector2f(10, 10));
+      		rect.setPosition(midpoint_x, midpoint_y);
         }
 
         /*
