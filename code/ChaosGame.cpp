@@ -10,102 +10,107 @@
 using namespace sf;
 using namespace std;
 
-int main()
-{
-    // Create a video mode object
+int main() {
+	// open a window
 	VideoMode vm(1920, 1080);
-	// Create and open a window for the game
-	RenderWindow window(vm, "ChaosGame", Style::Default);
-	rectangleShape rectangle;
-    vector<Vector2f> vertices;
-    vector<Vector2f> points;
+	RenderWindow window(vm, "ChaosGame", Style::Fullscreen);
+	RenderWindow window(vm, "THE CHAOS", Style::Fullscreen);
+	RectangleShape rectangle;
 
-	while (window.isOpen())
-	{
-        /*
-		****************************************
-		Handle the players input
-		****************************************
-		*/
-        Event event;
-		while (window.pollEvent(event))
-		{
-            if (event.type == Event::Closed)
-            {
-				// Quit the game when the window is closed
-				window.close();
-            }
-            if (event.type == sf::Event::MouseButtonPressed)
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                {
-                    std::cout << "the left button was pressed" << std::endl;
-                    std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-                    std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-
-                    if(vertices.size() < 3)
-                    {
-                        vertices.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
-                    }
-                    else if(points.size() == 0)
-                    {
-                        ///fourth click
-                        ///push back to points vector
-			points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y))
-                    }
-                }
-            }
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Escape))
-		{
+	vector<Vector2f> vertices;
+	vector<Vector2f> points;
+	window.clear();
+	while (window.isOpen()) {
+		Event event;
+		if (Keyboard::isKeyPressed(Keyboard::Escape)) {
 			window.close();
 		}
-        /*
-		****************************************
-		Update
-		****************************************
-		*/
-	RectangleShape rect(Vector2f(10, 10));
-        rect.setPosition(event.mouseButton.x, event.mouseButton.y);
-        rect.setFillColor(Color::Blue);
+		text.setString("Press 3 points for the veritices and click again to start!;
+		text.setPosition(20,20);
+		text.setCharacterSize(20);
+		//text.setFillColor(Color::Blue);
+		window.draw(text);
+		window.display();
+		while (window.pollEvent(event)) // first loop that gets inputs
+		{
+			if (event.type == Event::Closed)
+			{
+				window.close();
+			}
+			if (event.type == Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					cout << "the right button was pressed" << endl;
+					cout << "mouse x: " << event.mouseButton.x << endl;
+					cout << "mouse y: " << event.mouseButton.y << endl;
+					if (vertices.size() < 3)
+					{
+						vertices.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
+					}
+					else if (points.size() == 0)
+					{
+						//fourth click
+						points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
+					}
+				}
+			}
+		}
+		RectangleShape dot(Vector2f(10, 10));
+		dot.setPosition(event.mouseButton.x, event.mouseButton.y);
+		dot.setFillColor(Color::Magenta);
+		int midpoint_x, midpoint_y;
+		int vert_select = rand() % 3;
+		//double scale_factor = 0.5;
+		if (points.size() > 0)
+		{
+			//generate more points
+			//select random vertex
+			//calculate midpoints between random vertex and the last point in the vector
+			//push back to the newly generated coord.
+			midpoint_x = (points[points.size() - 1].x + vertices[vert_select].x) /2;
+			midpoint_y = (points[points.size() - 1].y + vertices[vert_select].y) /2;
+			cout << "points size: " << points.size() << endl;
+			cout << "points.x: " << points[points.size() - 1].x << endl;
+			cout << "points.y: " << points[points.size() - 1].y << endl;
+			cout << "vertices.x: " << vertices[vert_select].x << endl;
+			cout << "vertices.y: " << vertices[vert_select].y << endl;
+			//cout << "scale_factor" << scale_factor << endl;
+			cout << "midpoint_x: " << midpoint_x << endl;
+			cout << "midpoint_y: " << midpoint_y << endl << endl;
+			
+			points.push_back(Vector2f(midpoint_x, midpoint_y));
+			
+			sleep(seconds(0.0069));
+		}
+		switch (event.type) {
+			// this case makes a 10 by 10 pixel dot where mouse clicks
+		case Event::MouseButtonPressed:
+			dot.setSize(Vector2f(10, 10));
+			dot.setPosition(event.mouseButton.x, event.mouseButton.y);
+			break;
+		}
+		/// its for the first 4 dot inputs
+		/// second vector goes here for the points that get put in for the
+		/// triangle now we have a while loop that goes through with the
+		/// algorithm and draw a triangle
 		
-	int midpoint_x, midpoint_y;
-	int point = rand() %3;
-	int scale=1/2;
-        if(points.size() > 0)
-        {
-            ///generate more point(s)
-            ///select random vertex
-            ///calculate midpoint between random vertex and the last point in the vector
-            ///push back the newly generated coord.
-		midpoint_x= points[points.size()-1].x - (vertices[points].x - points[points.size() -1].x) *scale;
-		midpoint_y= points[points.size()-1].y - (vertices[points].y - points[points.size() -1].y) *scale;
-		//new coordinate is pushed back
-		
-	    cout << "points[point.size() - 1].x\t" << points[points.size() - 1].x << endl;
-            cout << "vertices[point].x\t" << vertices[point].x << endl;
-            cout << "scale\t" << scale << endl;
-            cout << "midpoint_x\t" << midpoint_x << endl;
-            cout << "midpoint_y\t" << midpoint_y << endl << endl;
-		
-		RectangleShape rect(Vector2f(10, 10));
-            rect.setSize(Vector2f(10, 10));
-      		rect.setPosition(midpoint_x, midpoint_y);
-        }
-
-        /*
-		****************************************
-		Draw
-		****************************************
-		*/
-        window.clear();
-        for(int i = 0; i < vertices.size(); i++)
-        {
-            RectangleShape rect(Vector2f(10,10));
-            rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
-            rect.setFillColor(Color::Blue);
-            window.draw(rect);
-        }
-        window.display();
-    }
+		for (int i = 0; i < vertices.size(); i++)
+		{
+			RectangleShape dot(Vector2f(5, 5));
+			dot.setPosition(Vector2f(vertices[i].x, vertices[i].y));
+			dot.setFillColor(Color::Red);
+			window.draw(dot);
+		}
+		for (int i = 0; i < points.size(); i++)
+		{
+			RectangleShape dot(Vector2f(2, 2));
+			dot.setPosition(Vector2f(points[i].x, points[i].y));
+			dot.setFillColor(Color::Magenta);
+			window.draw(dot);
+		}
+		// Show everything that we drew
+		window.display();
+	}
+	return 0;
 }
