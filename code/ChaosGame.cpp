@@ -26,15 +26,22 @@ int main() {
 		if (Keyboard::isKeyPressed(Keyboard::Escape)) {
 			window.close();
 		}
-
-		Font font;
-		Text text;
-		Text text1;
-		font.loadFromFile(".Dirtyboy-BxYl.ttf");
-		text.setString("Welcome to the Chaos Game! \tPress 3 points for the veritices and click once again to start!");
-		text.setCharacterSize(20);
-		window.draw(text);
-		window.display();
+		Font font;																				//display text in window
+	if (!font.loadFromFile("res/fonts/Dirtyboy-BxYl.ttf"))									//checks to see if font file is in project directory
+	{
+		cout << "Error loading file" << endl;												//outputs error message in console if font file is not found
+		system("pause");
+	}
+	Text text;																				//game title
+	text.setFont(font);
+	text.setString("Chaos Game!");
+	text.setCharacterSize(256);
+	text.setFillColor(Color::Red);
+	text.setStyle(Text::Style::Bold | Text::Style::Underlined);
+	text.setOutlineColor(Color::Yellow);
+	text.setOutlineThickness(10);
+	text.setPosition(300, 1);
+		
 
 		while (window.pollEvent(event)) // first loop that gets inputs
 		{
@@ -90,7 +97,7 @@ int main() {
 			cout << "points y: " << points[points.size() - 1].y << endl;
 			cout << "vertices x: " << vertices[vert_select].x << endl;
 			cout << "vertices y: " << vertices[vert_select].y << endl;
-			//cout << "scale factor" << scale_factor << endl;
+			
 			cout << "midpoint x: " << midpoint_x << endl;
 			cout << "midpoint y: " << midpoint_y << endl << endl;
 			
