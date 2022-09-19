@@ -30,11 +30,9 @@ int main() {
 		Font font;
 		Text text;
 		Text text1;
-		text.setFont(font);
-		text.setString("Welcome to the Chaos Game! Press 3 points for the veritices! Click again after to start the loop!");
-		text.setPosition(20,20);
+		font.loadFromFile(".Dirtyboy-BxYl.ttf");
+		text.setString("Welcome to the Chaos Game! \tPress 3 points for the veritices and click once again to start!");
 		text.setCharacterSize(20);
-		//text.setFillColor(Color::Blue);
 		window.draw(text);
 		window.display();
 
