@@ -11,7 +11,7 @@ using namespace sf;
 int main() {
 	// open a window
 	VideoMode vm(1920, 1080);
-	RenderWindow window(vm, "CHAOS GAME", Style::Fullscreen);
+	RenderWindow window(vm, "CHAOS GAME",Style::Default);
 	RectangleShape rectangle;
 
 	vector<Vector2f> vertices;
@@ -27,20 +27,20 @@ int main() {
 			window.close();
 		}
 		Font font;																				//display text in window
-	if (!font.loadFromFile("res/fonts/Dirtyboy-BxYl.ttf"))									//checks to see if font file is in project directory
+	if (!font.loadFromFile("KOMIKAP_.ttf"))									//checks to see if font file is in project directory
 	{
 		cout << "Error loading file" << endl;												//outputs error message in console if font file is not found
-		system("pause");
+		return EXIT_FAILURE;
 	}
 	Text text;																				//game title
 	text.setFont(font);
 	text.setString("Chaos Game!");
 	text.setCharacterSize(256);
 	text.setFillColor(Color::Red);
-	text.setStyle(Text::Style::Bold | Text::Style::Underlined);
+	text.setStyle(Text::Style::Bold);
 	text.setOutlineColor(Color::Yellow);
 	text.setOutlineThickness(10);
-	text.setPosition(300, 1);
+	text.setPosition(100, 100);
 		
 
 		while (window.pollEvent(event)) // first loop that gets inputs
@@ -138,6 +138,7 @@ int main() {
 		}
 
 		// Show everything that we drew
+		window.draw(text);
 		window.display();
 	}
 
