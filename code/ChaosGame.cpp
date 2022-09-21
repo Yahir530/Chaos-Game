@@ -77,7 +77,6 @@ int main() {
 
 		int midpoint_x, midpoint_y;
 		int vert_select = rand() % 3;
-		//double scale_factor = 0.5;
 
 
 
@@ -108,7 +107,7 @@ int main() {
 
 		switch (event.type) {
 
-			// this case makes a 10 by 10 pixel dot where mouse clicks
+			// creates ther pixel dot where the buttons are clicked
 		case Event::MouseButtonPressed:
 			rect.setSize(Vector2f(10, 10));
 			rect.setPosition(event.mouseButton.x, event.mouseButton.y);
