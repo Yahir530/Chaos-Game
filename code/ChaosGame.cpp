@@ -35,12 +35,12 @@ int main() {
 	Text text;																				//game title
 	text.setFont(font);
 	text.setString("Chaos Game!");
-	text.setCharacterSize(256);
+	text.setCharacterSize(25);
 	text.setFillColor(Color::Red);
 	text.setStyle(Text::Style::Bold);
 	text.setOutlineColor(Color::Yellow);
 	text.setOutlineThickness(10);
-	text.setPosition(100, 100);
+	text.setPosition(800, 50);
 		
 
 		while (window.pollEvent(event)) // first loop that gets inputs
